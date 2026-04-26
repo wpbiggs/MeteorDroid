@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head><title>v4 fixture</title></head>
+  <body>
+    <h1>Mini Comet v4 Smoke</h1>
+
+    <!-- Upload zone with hidden file input (FB-style) -->
+    <div id="dropzone" style="border:2px dashed #888;padding:24px;width:300px;">
+      <button type="button" id="add-photo">Add photo or drag and drop</button>
+      <input type="file" id="hidden-file" style="display:none;" accept="image/*" />
+      <div id="upload-status">no file</div>
+    </div>
+
+    <!-- Direct file input -->
+    <label for="direct-file">Direct upload</label>
+    <input type="file" id="direct-file" />
+    <div id="direct-status">no direct</div>
+
+    <!-- Locator strategy targets -->
+    <button id="btn-save">Save Draft</button>
+    <a href="#x" id="link-help">Help Center</a>
+    <label>Email <input type="email" id="email" placeholder="you@example.com" /></label>
+    <input type="text" id="search" placeholder="Search anything" />
+    <img src="data:image/svg+xml,%3Csvg/%3E" alt="Company Logo" id="logo" />
+    <button id="btn-extra" title="Extra Tooltip">x</button>
+
+    <!-- Delayed element for wait_for -->
+    <div id="late" style="display:none;">Late content arrived</div>
+
+    <script>
+      document.getElementById("hidden-file").addEventListener("change", (e) => {
+        const f = e.target.files[0];
+        document.getElementById("upload-status").textContent =
+          f ? `got ${f.name} (${f.size}B)` : "no file";
+      });
+      document.getElementById("direct-file").addEventListener("change", (e) => {
+        const f = e.target.files[0];
+        document.getElementById("direct-status").textContent =
+          f ? `direct ${f.name}` : "no direct";
+      });
+      // Reveal #late after 600ms to exercise wait_for.
+      setTimeout(() => {
+        document.getElementById("late").style.display = "block";
+      }, 600);
+    </script>
+  </body>
+</html>

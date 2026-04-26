@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "browser-agent": {
+      "type": "local",
+      "command": ["npx", "tsx", "/Users/will/projects/minicomet/src/server.ts"],
+      "environment": {
+        // mode: "ephemeral" | "persistent" | "cdp"
+        "MINI_COMET_MODE": "persistent",
+        // persistent: where logins/cookies live (a directory you control)
+        "MINI_COMET_PROFILE_DIR": "/Users/will/.minicomet/profile",
+        // 0 = headed (you can watch and grab the mouse), 1 = headless
+        "MINI_COMET_HEADLESS": "0"
+        // For cdp mode instead, replace the above with:
+        //   "MINI_COMET_MODE": "cdp",
+        //   "MINI_COMET_CDP_URL": "http://localhost:9222"
+        // and launch your Chrome with --remote-debugging-port=9222.
+      },
+      "enabled": true
+    }
+  }
+}

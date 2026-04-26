@@ -1,0 +1,34 @@
+{
+  "name": "opencode-browser-agent",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Mini Comet — local MCP server giving OpenCode browser-control tools via Playwright.",
+  "type": "module",
+  "main": "src/server.ts",
+  "bin": {
+    "opencode-browser-agent": "src/server.ts"
+  },
+  "scripts": {
+    "start": "tsx src/server.ts",
+    "dev": "tsx watch src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "smoke": "tsx scripts/smoke.ts",
+    "smoke:v2": "tsx scripts/smoke-v2.ts",
+    "smoke:v3": "tsx scripts/smoke-v3.ts",
+    "smoke:v4": "tsx scripts/smoke-v4.ts",
+    "postinstall": "playwright install chromium"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "playwright": "^1.48.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.9.0"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}
