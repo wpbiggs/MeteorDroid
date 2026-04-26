@@ -1,0 +1,107 @@
+<svg width="1600" height="600" viewBox="0 0 1600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#08162F"/>
+      <stop offset="0.55" stop-color="#0B244B"/>
+      <stop offset="1" stop-color="#1C0B2E"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 170) rotate(45) scale(760)">
+      <stop offset="0" stop-color="#58E6FF" stop-opacity="0.58"/>
+      <stop offset="0.42" stop-color="#1E7BFF" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#08162F" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="trail" x1="110" y1="145" x2="760" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7CFF8B" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#3DDCFF" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#8B5CFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="card" x1="980" y1="170" x2="1480" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B1D3D"/>
+      <stop offset="1" stop-color="#071021"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="980" y1="170" x2="1480" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A8F7FF" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#8B5CFF" stop-opacity="0.35"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="26" flood-color="#000814" flood-opacity="0.55"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="0" stdDeviation="26" flood-color="#58E6FF" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="600" fill="url(#bg)"/>
+  <rect width="1600" height="600" fill="url(#glow)"/>
+
+  <!-- subtle grid -->
+  <g opacity="0.16" stroke="#A8F7FF">
+    <path d="M0 84H1600"/>
+    <path d="M0 168H1600"/>
+    <path d="M0 252H1600"/>
+    <path d="M0 336H1600"/>
+    <path d="M0 420H1600"/>
+    <path d="M0 504H1600"/>
+    <path d="M120 0V600"/>
+    <path d="M240 0V600"/>
+    <path d="M360 0V600"/>
+    <path d="M480 0V600"/>
+    <path d="M600 0V600"/>
+    <path d="M720 0V600"/>
+    <path d="M840 0V600"/>
+    <path d="M960 0V600"/>
+    <path d="M1080 0V600"/>
+    <path d="M1200 0V600"/>
+    <path d="M1320 0V600"/>
+    <path d="M1440 0V600"/>
+  </g>
+
+  <!-- comet trail accents -->
+  <path d="M132 422C266 298 382 236 528 170C414 188 322 206 214 232C338 150 464 102 626 78" stroke="url(#trail)" stroke-width="24" stroke-linecap="round" opacity="0.55"/>
+  <path d="M156 468C316 330 458 254 664 172" stroke="#58E6FF" stroke-opacity="0.22" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- text -->
+  <g filter="url(#soft)">
+    <text x="120" y="212" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="64" font-weight="800" fill="#EAF7FF">
+      MeteorDroid
+    </text>
+    <text x="120" y="262" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="22" font-weight="600" fill="#A8F7FF" opacity="0.92">
+      Local MCP browser agent for OpenCode, powered by Playwright.
+    </text>
+    <text x="120" y="320" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="18" font-weight="500" fill="#D6E9FF" opacity="0.78">
+      Visible overlay. STOP button. Auto-pause for sensitive actions. Persistent profiles or attach to Chrome via CDP.
+    </text>
+  </g>
+
+  <!-- logo (raster) is used only to render hero.png locally -->
+  <g filter="url(#shadow)" opacity="0.98">
+    <image href="MeteorDroid.png" x="700" y="190" width="240" height="240" preserveAspectRatio="xMidYMid meet"/>
+  </g>
+
+  <!-- right-side "browser" card -->
+  <g filter="url(#shadow)">
+    <rect x="980" y="160" width="520" height="360" rx="26" fill="url(#card)"/>
+    <rect x="980" y="160" width="520" height="360" rx="26" stroke="url(#stroke)" stroke-width="3"/>
+    <rect x="1010" y="190" width="460" height="44" rx="14" fill="#0F2E5C" opacity="0.85"/>
+    <circle cx="1040" cy="212" r="8" fill="#FF6B6B" opacity="0.9"/>
+    <circle cx="1066" cy="212" r="8" fill="#FFD166" opacity="0.9"/>
+    <circle cx="1092" cy="212" r="8" fill="#7CFF8B" opacity="0.9"/>
+    <rect x="1120" y="204" width="340" height="16" rx="8" fill="#08162F" opacity="0.55"/>
+
+    <rect x="1010" y="252" width="270" height="18" rx="9" fill="#A8F7FF" opacity="0.34"/>
+    <rect x="1010" y="284" width="410" height="14" rx="7" fill="#A8F7FF" opacity="0.22"/>
+    <rect x="1010" y="306" width="380" height="14" rx="7" fill="#A8F7FF" opacity="0.18"/>
+    <rect x="1010" y="328" width="330" height="14" rx="7" fill="#A8F7FF" opacity="0.14"/>
+
+    <!-- safety overlay pill -->
+    <rect x="1244" y="456" width="226" height="44" rx="22" fill="#0B1D3D" opacity="0.92"/>
+    <rect x="1244" y="456" width="226" height="44" rx="22" stroke="#A8F7FF" stroke-opacity="0.45" stroke-width="2"/>
+    <circle cx="1270" cy="478" r="7" fill="#58E6FF" opacity="0.9"/>
+    <text x="1286" y="484" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" font-weight="700" fill="#EAF7FF" opacity="0.92">SAFE MODE</text>
+    <rect x="1376" y="464" width="84" height="28" rx="14" fill="#FFB703" opacity="0.92"/>
+    <text x="1398" y="484" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="14" font-weight="900" fill="#08162F">STOP</text>
+  </g>
+
+  <!-- Note: GitHub may not render SVG <image> reliably.
+       README uses the rendered PNG (assets/hero.png). -->
+</svg>

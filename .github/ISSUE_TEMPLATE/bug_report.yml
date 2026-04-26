@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a problem with MeteorDroid
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Include steps to reproduce and what you expected.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: MeteorDroid version
+      placeholder: 0.4.0
+    validations:
+      required: false
+  - type: dropdown
+    attributes:
+      label: Session mode
+      options:
+        - ephemeral
+        - persistent
+        - cdp
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: OS
+      placeholder: macOS 14 / Ubuntu 22.04 / Windows 11
+    validations:
+      required: false
+  - type: input
+    attributes:
+      label: Node version
+      placeholder: v20.11.1
+    validations:
+      required: false

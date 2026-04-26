@@ -1,16 +1,38 @@
-# opencode-browser-agent (Mini Comet) — v0.4
+![MeteorDroid hero](assets/hero.png)
 
-A small, local **MCP server** that gives [OpenCode](https://opencode.ai) a real
-browser to drive — Chromium via [Playwright](https://playwright.dev) — designed
-as a **co-pilot** rather than a headless robot.
+<p align="center">
+  <img src="assets/MeteorDroid.png" width="160" alt="MeteorDroid logo" />
+</p>
 
+<h1 align="center">MeteorDroid</h1>
+
+<p align="center">
+  A small, local <strong>MCP server</strong> that gives <a href="https://opencode.ai">OpenCode</a>
+  a real browser to drive (Chromium via <a href="https://playwright.dev">Playwright</a>)
+  with a visible safety overlay and a built-in pause/handoff protocol.
+</p>
+
+<p align="center">
+  <a href="#quick-start"><img alt="Quick start" src="https://img.shields.io/badge/docs-quick%20start-6680FF?style=flat" /></a>
+  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D18.17-339933?style=flat&logo=node.js&logoColor=white" />
+  <img alt="Playwright" src="https://img.shields.io/badge/playwright-chromium-2EAD33?style=flat&logo=playwright&logoColor=white" />
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-8B5CFF?style=flat" /></a>
+</p>
+
+```text
+OpenCode  --MCP/stdio-->  MeteorDroid (this repo)  --Playwright-->  Chromium
+                               |                              |
+                               |                              + Visible safety overlay + STOP
+                               + Auto-pause + human handoff on sensitive steps
 ```
-OpenCode  ──MCP/stdio──▶  opencode-browser-agent  ──Playwright──▶  Chromium
-                                │                                       │
-                                │                                       └─ Visible safety overlay
-                                │                                          + STOP button + fake cursor
-                                └──▶ pauses & hands off to YOU on sensitive steps
-```
+
+## Why MeteorDroid?
+
+- A real, visible browser (not a silent headless bot)
+- Auto-pause on sensitive actions (sign in/up, submit/enter, purchases, destructive flows)
+- Three session modes: `ephemeral`, `persistent`, or attach to your real Chrome via `cdp`
+- Multi-tab read with a single write target to reduce "oops wrong tab" failures
+- File uploads via `browser_upload_file`
 
 ## What's new in v0.4
 
@@ -92,16 +114,35 @@ paused so the agent can verify the new state on resume.
 
 ---
 
-## Install
+## Quick Start
 
 ```bash
-git clone <this repo> opencode-browser-agent
-cd opencode-browser-agent
 npm install
-npx playwright install chromium   # if postinstall didn't run
+npm run typecheck
 ```
 
-Requires Node ≥ 18.17.
+Requires Node >= 18.17.
+
+### Add to OpenCode
+
+Use the included `opencode.jsonc` as a starting point. Example:
+
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "browser-agent": {
+      "type": "local",
+      "command": ["npx", "tsx", "/abs/path/to/src/server.ts"],
+      "environment": {
+        "MINI_COMET_MODE": "persistent",
+        "MINI_COMET_PROFILE_DIR": "/Users/you/.minicomet/profile"
+      },
+      "enabled": true
+    }
+  }
+}
+```
 
 ---
 
@@ -156,7 +197,7 @@ sites you want; the agent will reuse those sessions on every subsequent run.
 
 ### Mode 3: `cdp` — attach to your real Chrome
 
-Connect Mini Comet to the Chrome you already use, with all your extensions and
+Connect MeteorDroid to the Chrome you already use, with all your extensions and
 logins. The agent creates a new tab marked `[mc]` and only writes to that tab,
 but can *read* any of your other open tabs.
 

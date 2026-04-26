@@ -27,7 +27,7 @@ async function main() {
   const session = new BrowserSession(cfg);
 
   const server = new Server(
-    { name: "opencode-browser-agent", version: "0.3.0" },
+    { name: "opencode-browser-agent", version: "0.4.0" },
     { capabilities: { tools: {} } },
   );
 

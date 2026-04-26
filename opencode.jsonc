@@ -3,18 +3,19 @@
   "mcp": {
     "browser-agent": {
       "type": "local",
-      "command": ["npx", "tsx", "/Users/will/projects/minicomet/src/server.ts"],
+      // Tip: use an absolute path so OpenCode can launch this from anywhere.
+      "command": ["npx", "tsx", "/abs/path/to/opencode-browser-agent/src/server.ts"],
       "environment": {
         // mode: "ephemeral" | "persistent" | "cdp"
         "MINI_COMET_MODE": "persistent",
-        // persistent: where logins/cookies live (a directory you control)
-        "MINI_COMET_PROFILE_DIR": "/Users/will/.minicomet/profile",
-        // 0 = headed (you can watch and grab the mouse), 1 = headless
-        "MINI_COMET_HEADLESS": "0"
-        // For cdp mode instead, replace the above with:
-        //   "MINI_COMET_MODE": "cdp",
-        //   "MINI_COMET_CDP_URL": "http://localhost:9222"
-        // and launch your Chrome with --remote-debugging-port=9222.
+        "MINI_COMET_PROFILE_DIR": "~/.minicomet/profile",
+
+        // For CDP mode (attach to a Chrome you launched with --remote-debugging-port):
+        // "MINI_COMET_MODE": "cdp",
+        // "MINI_COMET_CDP_URL": "http://localhost:9222",
+
+        // If you want headless Chromium (ephemeral/persistent modes only):
+        // "MINI_COMET_HEADLESS": "1"
       },
       "enabled": true
     }

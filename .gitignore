@@ -5,3 +5,7 @@ dist/
 coverage/
 .DS_Store
 *.log
+
+# Ignore non-project branding assets
+assets/cover.png
+assets/profile-pic.png
