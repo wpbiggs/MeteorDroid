@@ -10,7 +10,8 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
-    "noEmit": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "isolatedModules": true,
     "types": ["node"]
   },

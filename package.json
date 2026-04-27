@@ -1,21 +1,37 @@
 {
-  "name": "opencode-browser-agent",
+  "name": "meteordroid",
   "version": "0.4.0",
-  "private": true,
-  "description": "Mini Comet — local MCP server giving OpenCode browser-control tools via Playwright.",
-  "type": "module",
-  "main": "src/server.ts",
-  "bin": {
-    "opencode-browser-agent": "src/server.ts"
+  "description": "MeteorDroid — local MCP stdio server providing Playwright-backed browser tools.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wpbiggs/MeteorDroid.git"
   },
+  "bugs": {
+    "url": "https://github.com/wpbiggs/MeteorDroid/issues"
+  },
+  "homepage": "https://github.com/wpbiggs/MeteorDroid#readme",
+  "type": "module",
+  "main": "dist/server.js",
+  "bin": {
+    "meteordroid": "bin/meteordroid.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "tsx src/server.ts",
     "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit",
     "smoke": "tsx scripts/smoke.ts",
     "smoke:v2": "tsx scripts/smoke-v2.ts",
     "smoke:v3": "tsx scripts/smoke-v3.ts",
     "smoke:v4": "tsx scripts/smoke-v4.ts",
+    "prepublishOnly": "npm run build",
     "postinstall": "playwright install chromium"
   },
   "dependencies": {

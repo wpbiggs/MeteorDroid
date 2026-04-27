@@ -1,4 +1,4 @@
-#!/usr/bin/env -S npx tsx
+#!/usr/bin/env node
 /**
  * Mini Comet — local MCP server for OpenCode.
  * Speaks MCP over stdio. Exposes Playwright-backed browser tools with
@@ -27,7 +27,7 @@ async function main() {
   const session = new BrowserSession(cfg);
 
   const server = new Server(
-    { name: "opencode-browser-agent", version: "0.4.0" },
+    { name: "meteordroid", version: "0.4.0" },
     { capabilities: { tools: {} } },
   );
 

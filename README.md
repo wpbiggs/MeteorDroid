@@ -30,17 +30,29 @@ OpenCode  --MCP/stdio-->  MeteorDroid (this repo)  --Playwright-->  Chromium
 
 MeteorDroid is a standard **MCP stdio server**, so it works with OpenCode and any other MCP host that can spawn a local command over stdio.
 
+Install from npm:
+
 ```bash
-git clone https://github.com/wpbiggs/MeteorDroid.git
-cd MeteorDroid
-npm install
+npm i -g meteordroid
 ```
 
-Entry point for MCP hosts:
+Entry point for MCP hosts (global install):
 
 ```jsonc
 {
-  "command": ["npx", "tsx", "/abs/path/to/MeteorDroid/src/server.ts"],
+  "command": ["meteordroid"],
+  "environment": {
+    "MINI_COMET_MODE": "persistent",
+    "MINI_COMET_PROFILE_DIR": "/Users/you/.minicomet/profile"
+  }
+}
+```
+
+Or run via `npx` (no global install):
+
+```jsonc
+{
+  "command": ["npx", "-y", "meteordroid"],
   "environment": {
     "MINI_COMET_MODE": "persistent",
     "MINI_COMET_PROFILE_DIR": "/Users/you/.minicomet/profile"
