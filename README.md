@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="#quick-start"><img alt="Quick start" src="https://img.shields.io/badge/docs-quick%20start-6680FF?style=flat" /></a>
+  <a href="#quick-install"><img alt="Quick install" src="https://img.shields.io/badge/docs-quick%20install-6680FF?style=flat" /></a>
   <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D18.17-339933?style=flat&logo=node.js&logoColor=white" />
   <img alt="Playwright" src="https://img.shields.io/badge/playwright-chromium-2EAD33?style=flat&logo=playwright&logoColor=white" />
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-8B5CFF?style=flat" /></a>
@@ -21,9 +21,31 @@
 
 ```text
 OpenCode  --MCP/stdio-->  MeteorDroid (this repo)  --Playwright-->  Chromium
-                               |                              |
-                               |                              + Visible safety overlay + STOP
-                               + Auto-pause + human handoff on sensitive steps
+                                |                              |
+                                |                              + Visible safety overlay + STOP
+                                + Auto-pause + human handoff on sensitive steps
+```
+
+## Quick Install
+
+MeteorDroid is a standard **MCP stdio server**, so it works with OpenCode and any other MCP host that can spawn a local command over stdio.
+
+```bash
+git clone <this-repo-url>
+cd MeteorDroid
+npm install
+```
+
+Entry point for MCP hosts:
+
+```jsonc
+{
+  "command": ["npx", "tsx", "/abs/path/to/MeteorDroid/src/server.ts"],
+  "environment": {
+    "MINI_COMET_MODE": "persistent",
+    "MINI_COMET_PROFILE_DIR": "/Users/you/.minicomet/profile"
+  }
+}
 ```
 
 ## Why MeteorDroid?

@@ -75,7 +75,7 @@
 
   <!-- logo (raster) is used only to render hero.png locally -->
   <g filter="url(#shadow)" opacity="0.98">
-    <image href="MeteorDroid.png" x="700" y="190" width="240" height="240" preserveAspectRatio="xMidYMid meet"/>
+    <image href="MeteorDroid.png" x="760" y="330" width="220" height="220" preserveAspectRatio="xMidYMid meet"/>
   </g>
 
   <!-- right-side "browser" card -->
