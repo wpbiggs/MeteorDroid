@@ -31,7 +31,7 @@ OpenCode  --MCP/stdio-->  MeteorDroid (this repo)  --Playwright-->  Chromium
 MeteorDroid is a standard **MCP stdio server**, so it works with OpenCode and any other MCP host that can spawn a local command over stdio.
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/wpbiggs/MeteorDroid.git
 cd MeteorDroid
 npm install
 ```
