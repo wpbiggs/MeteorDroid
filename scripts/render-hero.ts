@@ -6,7 +6,7 @@ import { chromium } from "playwright";
 async function main() {
   const repoRoot = process.cwd();
   const svgPath = path.join(repoRoot, "assets", "hero.svg");
-  const outPath = path.join(repoRoot, "assets", "hero.png");
+  const outPath = path.join(repoRoot, "assets", "hero-banner.png");
 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({ viewport: { width: 1600, height: 600 } });

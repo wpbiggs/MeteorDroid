@@ -1,4 +1,4 @@
-![MeteorDroid hero](assets/hero.png)
+![MeteorDroid hero](assets/hero-banner.png)
 
 <p align="center">
   <img src="assets/MeteorDroid.png" width="160" alt="MeteorDroid logo" />

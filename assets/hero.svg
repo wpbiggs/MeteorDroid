@@ -73,7 +73,7 @@
     </text>
   </g>
 
-  <!-- logo (raster) is used only to render hero.png locally -->
+  <!-- logo (raster) is used only to render hero banner PNG locally -->
   <g filter="url(#shadow)" opacity="0.98">
     <image href="MeteorDroid.png" x="760" y="330" width="220" height="220" preserveAspectRatio="xMidYMid meet"/>
   </g>
@@ -103,5 +103,5 @@
   </g>
 
   <!-- Note: GitHub may not render SVG <image> reliably.
-       README uses the rendered PNG (assets/hero.png). -->
+       README uses the rendered PNG (assets/hero-banner.png). -->
 </svg>
