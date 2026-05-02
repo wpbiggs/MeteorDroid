@@ -243,6 +243,16 @@ but can *read* any of your other open tabs.
   --user-data-dir=$HOME/.minicomet/chrome-cdp
 ```
 
+Alternatively, MeteorDroid ships a small helper that can prompt you to pick an
+existing Chrome profile directory and launch Chrome in the background:
+
+```bash
+meteordroid cdp
+```
+
+(This uses your existing Chrome `--user-data-dir` and selected
+`--profile-directory`, so you must fully quit Chrome first.)
+
 (Use a separate `--user-data-dir` so this doesn't conflict with your normal
 Chrome. Or omit it to use your default profile — at your own risk.)
 

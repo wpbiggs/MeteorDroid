@@ -74,6 +74,10 @@ export class BrowserSession {
 
   constructor(private cfg: SessionConfig = configFromEnv()) {}
 
+  // Tracks a Chrome process we launched via tools so we can optionally quit it.
+  lastLaunchedChromePid: number | null = null;
+  lastLaunchedChromeCdpUrl: string | null = null;
+
   /* -------------------- lifecycle -------------------- */
 
   async ensure(): Promise<Page> {
@@ -120,6 +124,22 @@ export class BrowserSession {
     }
     this.active.setDefaultTimeout(15_000);
     await this.markPageAsAgent(this.active);
+  }
+
+  /** Switch this session to CDP mode without restarting the MCP server. */
+  async connectCDP(cdpUrl: string): Promise<{ cdpUrl: string }>{
+    // Close current local context/browser first.
+    await this.close();
+    this.cfg.mode = "cdp";
+    this.cfg.cdpUrl = cdpUrl;
+    // Launch into CDP mode and create a fresh agent-owned tab.
+    this.launching = this.launchByMode();
+    try {
+      await this.launching;
+    } finally {
+      this.launching = null;
+    }
+    return { cdpUrl };
   }
 
   /** Stamp a page with the "[mc]" title marker AND inject the safety

@@ -1,6 +1,6 @@
 {
   "name": "meteordroid",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "MeteorDroid — local MCP stdio server providing Playwright-backed browser tools.",
   "license": "MIT",
   "repository": {

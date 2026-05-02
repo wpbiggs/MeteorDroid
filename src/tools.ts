@@ -1,5 +1,11 @@
 import { z } from "zod";
 import { PausedError, type BrowserSession } from "./browser.js";
+import {
+  chromeUserDataDirDefault,
+  discoverProfiles,
+  launchChromeCDP,
+  quitChrome,
+} from "./chrome.js";
 
 export type ToolContent =
   | { type: "text"; text: string }
@@ -68,6 +74,25 @@ function dangerousMatch(s: string): string | null {
 /* ------------------------------------------------------------------ */
 
 export const schemas = {
+  // Chrome / CDP lifecycle helpers
+  chrome_list_profiles: z.object({
+    userDataDir: z.string().min(1).optional(),
+  }),
+  chrome_launch_cdp: z.object({
+    port: z.number().int().positive().max(65535).optional(),
+    userDataDir: z.string().min(1).optional(),
+    profileDir: z.string().min(1),
+    chromePath: z.string().min(1).optional(),
+  }),
+  chrome_quit: z.object({
+    pid: z.number().int().positive().optional(),
+    force: z.boolean().optional(),
+    confirm: z.boolean().optional(),
+  }),
+  browser_connect_cdp: z.object({
+    cdpUrl: z.string().url(),
+  }),
+
   browser_open_url: z.object({ url: z.string().url() }),
   browser_get_page_text: z.object({
     max_chars: z.number().int().positive().max(20_000).optional(),
@@ -147,6 +172,55 @@ export interface ToolDescriptor {
 }
 
 export const toolDescriptors: ToolDescriptor[] = [
+  {
+    name: "chrome_list_profiles",
+    description:
+      "List Chrome profile directories in the given user-data-dir (Default, Profile 1, ...), including friendly names when available.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        userDataDir: { type: "string", description: "Chrome user data dir (optional; default is OS-specific)." },
+      },
+    },
+  },
+  {
+    name: "chrome_launch_cdp",
+    description:
+      "Launch Google Chrome in the background with --remote-debugging-port using an existing profile directory.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        port: { type: "integer", minimum: 1, maximum: 65535 },
+        userDataDir: { type: "string" },
+        profileDir: { type: "string", description: "Profile directory name (e.g. Default, Profile 1)." },
+        chromePath: { type: "string", description: "Optional Chrome binary path." },
+      },
+      required: ["profileDir"],
+    },
+  },
+  {
+    name: "chrome_quit",
+    description:
+      "Quit Chrome (best-effort). If pid is provided, sends SIGTERM (or SIGKILL with force=true). Requires confirm=true or the agent will pause and ask the user.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        pid: { type: "integer", minimum: 1 },
+        force: { type: "boolean" },
+        confirm: { type: "boolean" },
+      },
+    },
+  },
+  {
+    name: "browser_connect_cdp",
+    description:
+      "Switch the current session to CDP mode by connecting to an already-running Chrome at cdpUrl (no MCP restart). Creates a new agent-marked tab.",
+    inputSchema: {
+      type: "object",
+      properties: { cdpUrl: { type: "string" } },
+      required: ["cdpUrl"],
+    },
+  },
   {
     name: "browser_open_url",
     description:
@@ -381,6 +455,48 @@ export async function dispatch(
 ): Promise<ToolResult> {
   try {
     switch (name) {
+      case "chrome_list_profiles": {
+        const { userDataDir } = schemas.chrome_list_profiles.parse(rawArgs ?? {});
+        const dir = userDataDir ?? chromeUserDataDirDefault();
+        const profiles = discoverProfiles(dir);
+        return ok({ userDataDir: dir, profiles });
+      }
+
+      case "chrome_launch_cdp": {
+        const { port, userDataDir, profileDir, chromePath } =
+          schemas.chrome_launch_cdp.parse(rawArgs ?? {});
+        const dir = userDataDir ?? chromeUserDataDirDefault();
+        const r = launchChromeCDP({
+          chromePath,
+          userDataDir: dir,
+          profileDir,
+          port: port ?? 9222,
+        });
+        session.lastLaunchedChromePid = r.pid;
+        session.lastLaunchedChromeCdpUrl = r.cdpUrl;
+        return ok({ ok: true, ...r });
+      }
+
+      case "chrome_quit": {
+        const { pid, force, confirm } = schemas.chrome_quit.parse(rawArgs ?? {});
+        if (!confirm) {
+          const target = pid ?? session.lastLaunchedChromePid;
+          const reason = `Quitting Chrome is destructive. Please confirm you want to quit Chrome${target ? ` (pid ${target})` : ""}.`;
+          session.pause(reason);
+          return paused(reason);
+        }
+        const targetPid = pid ?? session.lastLaunchedChromePid;
+        const r = await quitChrome({ pid: targetPid, force });
+        // r already contains ok: true.
+        return ok({ ...r, confirmed: true });
+      }
+
+      case "browser_connect_cdp": {
+        const { cdpUrl } = schemas.browser_connect_cdp.parse(rawArgs ?? {});
+        const r = await session.connectCDP(cdpUrl);
+        return ok({ ok: true, ...r });
+      }
+
       case "browser_open_url": {
         const { url } = schemas.browser_open_url.parse(rawArgs ?? {});
         const r = await session.openUrl(url);
